@@ -9,12 +9,13 @@ const exec = require('child_process');
 try {
     console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
     exec.execSync('chmod +x ' + __dirname + '/dependencies/glualint');
-    var result = exec.execSync('sudo ' + __dirname + '/dependencies/glualint ' + process.env.GITHUB_WORKSPACE).toString();
+    // var result = exec.execSync('sudo ' + __dirname + '/dependencies/glualint ' + process.env.GITHUB_WORKSPACE).toString();
 
     console.log('Done! Analyzing result...');
     console.log(result);
 
-    exec.execSync('ls', {stdio: 'inherit'});
+    let result = exec.spawnSync('ls', []);
+    console.log(result.output.join('\n'));
 
     core.setOutput('warnings', 0);
     core.setOutput('errors', 0);
