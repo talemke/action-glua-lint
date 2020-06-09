@@ -8,7 +8,7 @@ const exec = require('child_process');
 
 try {
     console.log('Linting...');
-    var result = exec.execSync('./dependencies/glualint').toString();
+    var result = exec.execSync(__dirname + 'dependencies/glualint').toString();
 
     console.log('Done! Analyzing result...');
     console.log(result);
