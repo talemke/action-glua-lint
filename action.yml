@@ -5,11 +5,7 @@ inputs:
     description: 'Which directory to lint.'
     required: false
     default: '/'
-outputs:
-  warnings:
-    description: 'How many warnings have been found.'
-  errors:
-    description: 'How many errors have been found. The action will fail if an error is found.'
+outputs: []
 runs:
   using: 'node12'
   main: 'index.js'
