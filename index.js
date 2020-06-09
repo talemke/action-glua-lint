@@ -9,7 +9,7 @@ const exec = require('child_process');
 try {
     console.log('Linting...');
     exec.execSync('chmod +x ' + __dirname + '/dependencies/glualint');
-    var result = exec.execSync(__dirname + '/dependencies/glualint').toString();
+    var result = exec.execSync('sudo ' + __dirname + '/dependencies/glualint').toString();
 
     console.log('Done! Analyzing result...');
     console.log(result);
