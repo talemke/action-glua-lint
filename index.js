@@ -46,5 +46,5 @@ for (let i = 0; i < elements.length; i++) {
     }
 }
 
-message = 'Found ' + errors + ' errors and ' + warnings + ' warnings:\n\n' + message;
+message = 'Found ' + errors + ' error(s) and ' + warnings + ' warning(s):\n' + message;
 core.setFailed(message);
