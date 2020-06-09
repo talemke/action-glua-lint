@@ -14,6 +14,8 @@ try {
     console.log('Done! Analyzing result...');
     console.log(result);
 
+    console.log(exec.execSync('ls ' + process.env.GITHUB_WORKSPACE).toString());
+
     core.setOutput('warnings', 0);
     core.setOutput('errors', 0);
 } catch (error) {
