@@ -8,7 +8,7 @@ const exec = require('child_process');
 
 // Fetch NodeJS version (and also test exec functionality)
 let result = exec.execSync('node -v');
-console.log('Running 7 NodeJS ' + result.toString('utf-8'));
+console.log('Running 8 NodeJS ' + result.toString('utf-8').trim());
 
 
 
@@ -16,20 +16,19 @@ console.log('Running 7 NodeJS ' + result.toString('utf-8'));
 console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
 exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
 
-let result2;
+let output;
 
 try {
-    //result2 = exec.execSync('./glualint --version', { cwd: __dirname + '/dependencies' });
-    //result2 = exec.execSync('./glualint', { cwd: __dirname + '/dependencies' });
-    result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
-    //result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
+    let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
+    output = result2.stdout.toString('utf-8').trim();
 } catch (error) {
     console.log(error);
-    console.log(error.stdout.toString('utf-8'));
+    output = error.stdout.toString('utf-8').trim();
 }
 
-console.log('Done! Analyzing result...');
-if (result2) console.log(result2.toString('utf-8'));
+console.log('Done! Result:');
+console.log('-------------\n');
+console.log(output);
 
 core.setOutput('warnings', 0);
 core.setOutput('errors', 0);
