@@ -14,7 +14,7 @@ try {
     console.log('Done! Analyzing result...');
     console.log(result);
 
-    console.log(exec.execSync('ls').toString());
+    exec.execSync('ls', {stdio: 'inherit'});
 
     core.setOutput('warnings', 0);
     core.setOutput('errors', 0);
