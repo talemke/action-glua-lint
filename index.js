@@ -19,8 +19,8 @@ exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
 let result2;
 
 try {
-    result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
-    //result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
+    //result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
+    result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
 } catch (error) {
     console.log(error.message);
 }
