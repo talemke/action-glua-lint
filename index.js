@@ -7,7 +7,7 @@ const github = require('@actions/github');
 const exec = require('child_process');
 
 try {
-    console.log('Linting...');
+    console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
     exec.execSync('chmod +x ' + __dirname + '/dependencies/glualint');
     var result = exec.execSync('sudo ' + __dirname + '/dependencies/glualint ' + process.env.GITHUB_WORKSPACE).toString();
 
