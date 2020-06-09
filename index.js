@@ -24,7 +24,7 @@ try {
     result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
     //result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
 } catch (error) {
-    console.log(error.message);
+    console.log(error);
 }
 
 console.log('Done! Analyzing result...');
