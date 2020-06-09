@@ -8,7 +8,7 @@ const exec = require('child_process');
 
 // Testing exec
 let result = exec.execSync('node -v');
-console.log(result);
+console.log(result.toString('utf8'));
 
 try {
     console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
