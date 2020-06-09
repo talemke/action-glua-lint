@@ -15,10 +15,10 @@ console.log('Running NodeJS ' + result.toString('utf-8'));
 // Do the actual linting
 console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
 exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
-//let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
-let result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
+let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
+//let result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
 
-console.log('Done! Analyzing result 12...');
+console.log('Done! Analyzing result 13...');
 console.log(result2.toString('utf-8'));
 
 core.setOutput('warnings', 0);
