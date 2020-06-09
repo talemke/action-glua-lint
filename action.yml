@@ -1,0 +1,7 @@
+name: 'GLua Linter'
+description: 'Lints your GLua files and checks them for errors.'
+inputs:
+outputs:
+runs:
+  using: 'node12'
+  main: 'index.js'
