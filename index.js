@@ -6,20 +6,18 @@ const github = require('@actions/github');
 // Other modules
 const exec = require('child_process');
 
-// Testing exec
+// Fetch NodeJS version (and also test exec functionality)
 let result = exec.execSync('node -v');
+console.log('Running NodeJS ' + result.toString('utf8'));
+
+
+
+// Do the actual linting
+console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
+result = exec.execSync('sudo ' + __dirname + '/dependencies/glualint ' + process.env.GITHUB_WORKSPACE);
+
+console.log('Done! Analyzing result...');
 console.log(result.toString('utf8'));
 
-try {
-    console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
-    exec.execSync('chmod +x ' + __dirname + '/dependencies/glualint');
-    // var result = exec.execSync('sudo ' + __dirname + '/dependencies/glualint ' + process.env.GITHUB_WORKSPACE).toString();
-
-    console.log('Done! Analyzing result...');
-    console.log(result);
-
-    core.setOutput('warnings', 0);
-    core.setOutput('errors', 0);
-} catch (error) {
-    core.setFailed(error.message);
-}
+core.setOutput('warnings', 0);
+core.setOutput('errors', 0);
