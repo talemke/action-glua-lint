@@ -18,7 +18,7 @@ exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
 let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
 //let result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
 
-console.log('Done! Analyzing result 14...');
+console.log('Done! Analyzing result 15...');
 console.log(result2.stdout.toString('utf-8'));
 
 core.setOutput('warnings', 0);
