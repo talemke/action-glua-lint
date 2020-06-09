@@ -25,6 +25,7 @@ try {
     //result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
 } catch (error) {
     console.log(error);
+    console.log(error.stdout.toString('utf-8'));
 }
 
 console.log('Done! Analyzing result...');
