@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/TASSIA710/action-glua-lint/issues"
   },
-  "homepage": "https://github.com/TASSIA710/action-glua-lint#readme"
+  "homepage": "https://github.com/TASSIA710/action-glua-lint#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.4"
+  }
 }
