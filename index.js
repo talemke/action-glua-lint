@@ -8,7 +8,7 @@ const exec = require('child_process');
 
 // Fetch NodeJS version (and also test exec functionality)
 let result = exec.execSync('node -v');
-console.log('Running 2 NodeJS ' + result.toString('utf-8'));
+console.log('Running 3 NodeJS ' + result.toString('utf-8'));
 
 
 
@@ -19,7 +19,8 @@ exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
 let result2;
 
 try {
-    result2 = exec.execSync('./glualint --version', { cwd: __dirname + '/dependencies' });
+    //result2 = exec.execSync('./glualint --version', { cwd: __dirname + '/dependencies' });
+    result2 = exec.execSync('./glualint', { cwd: __dirname + '/dependencies' });
     //result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
     //result2 = exec.execSync('ls', { cwd: __dirname + '/../../../../gmod-cityrp/gmod-cityrp' });
 } catch (error) {
