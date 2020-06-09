@@ -8,7 +8,7 @@ const exec = require('child_process');
 
 // Fetch NodeJS version (and also test exec functionality)
 let result = exec.execSync('node -v');
-console.log('Running 5 NodeJS ' + result.toString('utf-8'));
+console.log('Running 6 NodeJS ' + result.toString('utf-8'));
 
 
 
@@ -28,7 +28,7 @@ try {
 }
 
 console.log('Done! Analyzing result...');
-console.log(result2.toString('utf-8'));
+if (result2) console.log(result2.toString('utf-8'));
 
 core.setOutput('warnings', 0);
 core.setOutput('errors', 0);
