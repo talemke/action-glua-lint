@@ -14,6 +14,7 @@ console.log('Running NodeJS ' + result.toString('utf-8'));
 
 // Do the actual linting
 console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
+exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
 let result2 = exec.execSync('./glualint --version', { cwd: __dirname + '/dependencies' });
 
 console.log('Done! Analyzing result...');
