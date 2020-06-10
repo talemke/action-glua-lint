@@ -99,17 +99,25 @@ if (errorCount != 0) {
 
 
 
+function printType(type, count) {
+    if (count == 1) type = type.replace('(s)', '');
+    else type = type.replace('(s)', 's');
+    console.log('» ' + type + ': ' + count + 'x');
+}
+
+
+
 console.log(warningCount + ' warning(s):');
-for (const type in warnings) {
-    console.log('» ' + type + ': ' + warnings[type] + 'x');
+for (let type in warnings) {
+    printType(type, warnings[type]);
 }
 console.log('');
 
 
 
 console.log(errorCount + ' error(s):');
-for (const type in errors) {
-    console.log('» ' + type + ': ' + errors[type] + 'x');
+for (let type in errors) {
+    printType(type, errors[type]);
 }
 console.log('');
 
