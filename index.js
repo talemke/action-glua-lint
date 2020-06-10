@@ -20,13 +20,11 @@ console.log('');
 
 
 // Do the actual linting
-console.log('Linting ' + process.env.GITHUB_WORKSPACE + '...');
+console.log('Linting ' + process.env.GITHUB_WORKSPACE + core.getInput('directory') + '...');
 exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
-
 let output;
-
 try {
-    let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
+    let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE + core.getInput('directory'), { cwd: __dirname + '/dependencies' });
     output = result2.stdout.toString().trim();
 } catch (error) {
     output = error.stdout.toString().trim();
