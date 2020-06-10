@@ -53,15 +53,40 @@ for (let i = 0; i < elements.length; i++) {
      * [6] = column (to)
      * [7] = message
      */
+    var message = matches[7];
+    if (message.matches('(Unused variable:\\s)(.*)')) {
+        message = 'Unused variable(s)';
+    } else if (message.matches('(Deprecated: )(.*)')) {
+        message = 'Deprecation(s)';
+    } else if (message.matches('(Empty if statement)')) {
+        message = 'Empty If-Statement(s)';
+    } else if (message.matches('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
+        message = 'Double If-Statement(s)';
+    } else if (message.matches('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
+        message = 'Shadow existing binding(s)';
+    } else if (message.matches('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
+        message = 'Inconsistent usage(s) - (\'!\' and \'not\')';
+    } else if (message.matches('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
+        message = 'Inconsistent usage(s) - (\'&&\' and \'and\')';
+    } else if (message.matches('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
+        message = 'Inconsistent usage(s) - (\'||\' and \'or\')';
+    } else if (message.matches('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
+        message = 'Inconsistent usage(s) - (\'//\' and \'--\')';
+    } else if (message.matches('(Style: Please put some whitespace )(after|before)(.*)')) {
+        message = 'Missing whitespace(s)';
+    }
+
     if (matches[2] == 'Error') {
         errorCount++;
-        if (!errors[matches[7]]) errors[matches[7]] = 1;
-        else errors[matches[7]]++;
+        if (!errors[message]) errors[message] = 1;
+        else errors[message]++;
         message += matches[0] + '\n';
+
     } else if (matches[2] == 'Warning') {
         warningCount++;
-        if (!warnings[matches[7]]) warnings[matches[7]] = 1;
-        else warnings[matches[7]]++;
+        if (!warnings[message]) warnings[message] = 1;
+        else warnings[message]++;
+
     }
 }
 
