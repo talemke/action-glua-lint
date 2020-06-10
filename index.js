@@ -12,6 +12,9 @@ const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scol
 // Fetch NodeJS version (and also test exec functionality)
 let result = exec.execSync('node -v');
 console.log('');
+console.log('Repository: ' + github.context.repo.owner + '/' + github.context.repo.repo);
+console.log('Commit SHA: ' + github.context.sha);
+console.log('Operating System: ' + process.env.OS);
 console.log('Running NodeJS: ' + result.toString('utf-8').trim());
 console.log('Running GLuaFixer: v1.15.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.15.0)');
 console.log('Running GLua-Lint: v0.2');
