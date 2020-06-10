@@ -60,22 +60,40 @@ for (let i = 0; i < elements.length; i++) {
         msg = 'Unused variable(s)';
     } else if (msg.match('(Deprecated: )(.*)')) {
         msg = 'Deprecation(s)';
-    } else if (msg.match('(Empty if statement)')) {
-        msg = 'Empty If-Statement(s)';
+    } else if (msg.match('(Empty )(elseif|else|if)( statement)')) {
+        msg = 'Empty If/Else-Statement(s)';
     } else if (msg.match('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
         msg = 'Double If-Statement(s)';
     } else if (msg.match('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
         msg = 'Shadow existing binding(s)';
     } else if (msg.match('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
-        msg = 'Inconsistent usage(s) - (\'!\' and \'not\')';
+        msg = 'Inconsistent usage(s) (\'!\' and \'not\')';
     } else if (msg.match('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
-        msg = 'Inconsistent usage(s) - (\'&&\' and \'and\')';
+        msg = 'Inconsistent usage(s) (\'&&\' and \'and\')';
     } else if (msg.match('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
-        msg = 'Inconsistent usage(s) - (\'||\' and \'or\')';
+        msg = 'Inconsistent usage(s) (\'||\' and \'or\')';
     } else if (msg.match('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
-        msg = 'Inconsistent usage(s) - (\'//\' and \'--\')';
+        msg = 'Inconsistent usage(s) (\'//\' and \'--\')';
     } else if (msg.match('(Style: Please put some whitespace )(after|before)(.*)')) {
         msg = 'Missing whitespace(s)';
+    } else if (msg.match('(Trailing whitespace)')) {
+        msg = 'Trailing whitespace(s)';
+    } else if (msg.match('(Unnecessary parentheses)')) {
+        msg = 'Unnecessary parentheses';
+    } else if (msg.match('(Inconsistent use of )(tabs|spaces)( and )(tabs|spaces)( for indentation)')) {
+        msg = 'Inconsistent usage(s) (tabs and spaces)';
+    } else if (msg.match('(Inconsistent use of \')(single|double)( quoted strings\' and \')(single|double)( quoted strings\')')) {
+        msg = 'Inconsistent usage(s) (\' and ")';
+    } else if (msg.match('(Are you Egyptian\\? What\'s with these fucking scope pyramids!\\?)')) {
+        msg = 'Scope pyramid(s)';
+    } else if (msg.match('(\'self.)(Entity|Weapon)(\' is the same as just \'self\' in )(SENT|SWEP)(s)')) {
+        msg = 'Unnecessary member accessement(s)';
+    } else if (msg.match('(Silly negation\\. Use \'~=\')')) {
+        msg = 'Silly negation(s)';
+    } else if (msg.match('(Don\'t use self in a non-metafunction)')) {
+        msg = 'Usage of \'self\' in non-metafunction(s)';
+    } else if (Msg.match('(Duplicate key in table: \')(.*)(\'\\.)')) {
+        msg = 'Duplicate key(s) in table(s)';
     } else {
         msg = '[RAW] ' + msg;
     }
