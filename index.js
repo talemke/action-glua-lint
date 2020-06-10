@@ -54,6 +54,7 @@ for (let i = 0; i < elements.length; i++) {
      * [7] = message
      */
     let msg = matches[7];
+    /*
     if (msg.matches('(Unused variable:\\s)(.*)')) {
         msg = 'Unused variable(s)';
     } else if (msg.matches('(Deprecated: )(.*)')) {
@@ -75,6 +76,7 @@ for (let i = 0; i < elements.length; i++) {
     } else if (msg.matches('(Style: Please put some whitespace )(after|before)(.*)')) {
         msg = 'Missing whitespace(s)';
     }
+    */
 
     if (matches[2] == 'Error') {
         errorCount++;
