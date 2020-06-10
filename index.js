@@ -127,6 +127,6 @@ console.log('');
 
 
 
-console.log('\n\n------------------------------------------');
+console.log('------------------------------------------');
 console.log('Full Linter Output (' + elements.length + ' entries):\n\n');
 console.log(output);
