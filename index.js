@@ -22,7 +22,6 @@ try {
     let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE, { cwd: __dirname + '/dependencies' });
     output = result2.stdout.toString().trim();
 } catch (error) {
-    // console.log(error);
     output = error.stdout.toString().trim();
 }
 
