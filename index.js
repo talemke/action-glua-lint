@@ -54,29 +54,27 @@ for (let i = 0; i < elements.length; i++) {
      * [7] = message
      */
     let msg = matches[7];
-    /*
-    if (msg.matches('(Unused variable:\\s)(.*)')) {
+    if (msg.match('(Unused variable:\\s)(.*)')) {
         msg = 'Unused variable(s)';
-    } else if (msg.matches('(Deprecated: )(.*)')) {
+    } else if (msg.match('(Deprecated: )(.*)')) {
         msg = 'Deprecation(s)';
-    } else if (msg.matches('(Empty if statement)')) {
+    } else if (msg.match('(Empty if statement)')) {
         msg = 'Empty If-Statement(s)';
-    } else if (msg.matches('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
+    } else if (msg.match('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
         msg = 'Double If-Statement(s)';
-    } else if (msg.matches('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
+    } else if (msg.match('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
         msg = 'Shadow existing binding(s)';
-    } else if (msg.matches('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
+    } else if (msg.match('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
         msg = 'Inconsistent usage(s) - (\'!\' and \'not\')';
-    } else if (msg.matches('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
+    } else if (msg.match('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
         msg = 'Inconsistent usage(s) - (\'&&\' and \'and\')';
-    } else if (msg.matches('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
+    } else if (msg.match('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
         msg = 'Inconsistent usage(s) - (\'||\' and \'or\')';
-    } else if (msg.matches('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
+    } else if (msg.match('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
         msg = 'Inconsistent usage(s) - (\'//\' and \'--\')';
-    } else if (msg.matches('(Style: Please put some whitespace )(after|before)(.*)')) {
+    } else if (msg.match('(Style: Please put some whitespace )(after|before)(.*)')) {
         msg = 'Missing whitespace(s)';
     }
-    */
 
     if (matches[2] == 'Error') {
         errorCount++;
@@ -103,7 +101,7 @@ if (errorCount != 0) {
 
 console.log(warningCount + ' warning(s):');
 for (const type in warnings) {
-    console.log(type + ': ' + warnings[type] + 'x');
+    console.log('» ' + type + ': ' + warnings[type] + 'x');
 }
 console.log('');
 
@@ -111,7 +109,7 @@ console.log('');
 
 console.log(errorCount + ' error(s):');
 for (const type in errors) {
-    console.log(type + ': ' + errors[type] + 'x');
+    console.log('» ' + type + ': ' + errors[type] + 'x');
 }
 console.log('');
 
