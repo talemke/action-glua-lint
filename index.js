@@ -53,39 +53,39 @@ for (let i = 0; i < elements.length; i++) {
      * [6] = column (to)
      * [7] = message
      */
-    var message = matches[7];
-    if (message.matches('(Unused variable:\\s)(.*)')) {
-        message = 'Unused variable(s)';
-    } else if (message.matches('(Deprecated: )(.*)')) {
-        message = 'Deprecation(s)';
-    } else if (message.matches('(Empty if statement)')) {
-        message = 'Empty If-Statement(s)';
-    } else if (message.matches('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
-        message = 'Double If-Statement(s)';
-    } else if (message.matches('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
-        message = 'Shadow existing binding(s)';
-    } else if (message.matches('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
-        message = 'Inconsistent usage(s) - (\'!\' and \'not\')';
-    } else if (message.matches('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
-        message = 'Inconsistent usage(s) - (\'&&\' and \'and\')';
-    } else if (message.matches('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
-        message = 'Inconsistent usage(s) - (\'||\' and \'or\')';
-    } else if (message.matches('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
-        message = 'Inconsistent usage(s) - (\'//\' and \'--\')';
-    } else if (message.matches('(Style: Please put some whitespace )(after|before)(.*)')) {
-        message = 'Missing whitespace(s)';
+    let msg = matches[7];
+    if (msg.matches('(Unused variable:\\s)(.*)')) {
+        msg = 'Unused variable(s)';
+    } else if (msg.matches('(Deprecated: )(.*)')) {
+        msg = 'Deprecation(s)';
+    } else if (msg.matches('(Empty if statement)')) {
+        msg = 'Empty If-Statement(s)';
+    } else if (msg.matches('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
+        msg = 'Double If-Statement(s)';
+    } else if (msg.matches('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
+        msg = 'Shadow existing binding(s)';
+    } else if (msg.matches('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
+        msg = 'Inconsistent usage(s) - (\'!\' and \'not\')';
+    } else if (msg.matches('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
+        msg = 'Inconsistent usage(s) - (\'&&\' and \'and\')';
+    } else if (msg.matches('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
+        msg = 'Inconsistent usage(s) - (\'||\' and \'or\')';
+    } else if (msg.matches('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
+        msg = 'Inconsistent usage(s) - (\'//\' and \'--\')';
+    } else if (msg.matches('(Style: Please put some whitespace )(after|before)(.*)')) {
+        msg = 'Missing whitespace(s)';
     }
 
     if (matches[2] == 'Error') {
         errorCount++;
-        if (!errors[message]) errors[message] = 1;
-        else errors[message]++;
+        if (!errors[msg]) errors[msg] = 1;
+        else errors[msg]++;
         message += matches[0] + '\n';
 
     } else if (matches[2] == 'Warning') {
         warningCount++;
-        if (!warnings[message]) warnings[message] = 1;
-        else warnings[message]++;
+        if (!warnings[msg]) warnings[msg] = 1;
+        else warnings[msg]++;
 
     }
 }
