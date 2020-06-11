@@ -94,7 +94,7 @@ for (let i = 0; i < elements.length; i++) {
         msg = 'Silly negation(s)';
     } else if (msg.match('(Don\'t use self in a non-metafunction)')) {
         msg = 'Usage of \'self\' in non-metafunction(s)';
-    } else if (Msg.match('(Duplicate key in table: \')(.*)(\'\\.)')) {
+    } else if (msg.match('(Duplicate key in table: \')(.*)(\'\\.)')) {
         msg = 'Duplicate key(s) in table(s)';
     } else {
         msg = '[RAW] ' + msg;
