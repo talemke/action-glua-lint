@@ -114,7 +114,7 @@ for (let i = 0; i < elements.length; i++) {
     } else if (msg.match('(Duplicate key in table: \')(.*)(\'\\.)')) {
         msg = 'Duplicate key(s) in table(s)';
     } else {
-        msg = '[RAW] ' + msg;
+        msg = '[UNGROUPED] ' + msg;
     }
 
     if (matches[2] == 'Error') {
