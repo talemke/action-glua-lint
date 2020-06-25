@@ -4,6 +4,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('child_process');
 const os = require('os');
+const wget = require('node-wget');
 
 // Other constants
 const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scolumn\\s([0-9]+)\\s-\\sline\\s([0-9]+),\\scolumn\\s([0-9]+):\\s+(.*)';
@@ -18,6 +19,16 @@ console.log('Running NodeJS: ' + result.toString('utf-8').trim());
 console.log('Running GLuaFixer: v1.15.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.15.0)');
 console.log('Running GLua-Lint: v0.2');
 console.log('');
+
+
+
+// Download the linter
+console.log('Downloading linter...');
+wget({
+    url: 'https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip',
+    dest: __dirname + '/dependencies/glualint.zip'
+});
+console.log('Done!');
 
 
 
