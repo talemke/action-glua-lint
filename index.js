@@ -34,6 +34,7 @@ console.log('Unzipping linter...');
 fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
 
 console.log('Done!');
+console.log('');
 
 
 
