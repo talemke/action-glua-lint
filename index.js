@@ -34,8 +34,6 @@ async function main() {
     console.log('Unzipping linter...');
     await fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
 
-    exec.execSync('ls', { cwd: __dirname + '/dependencies' });
-
     console.log('Done!');
     console.log('');
 
