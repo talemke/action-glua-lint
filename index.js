@@ -91,6 +91,8 @@ for (let i = 0; i < elements.length; i++) {
         msg = 'Inconsistent usage(s) (\'||\' and \'or\')';
     } else if (msg.match('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
         msg = 'Inconsistent usage(s) (\'//\' and \'--\')';
+    } else if (msg.match('(Inconsistent use of \')(~=|!=)(\' and \')(~=|!=)(\')')) {
+        msg = 'Inconsistent usage(s) (\'!=\' and \'~=\')';
     } else if (msg.match('(Style: Please put some whitespace )(after|before)(.*)')) {
         msg = 'Missing whitespace(s)';
     } else if (msg.match('(Trailing whitespace)')) {
