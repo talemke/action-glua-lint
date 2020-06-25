@@ -29,7 +29,7 @@ exec.execSync('mkdir ' + __dirname + '/dependencies', { stdio: 'ignore' });
 exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip', { stdio: 'ignore' });
 
 console.log('Unzipping linter...');
-exec.execSync('unzip ' + __dirname + '/dependencies/glualint.zip');
+exec.execSync('unzip ' + __dirname + '/dependencies/glualint.zip -d' + __dirname + '/dependencies');
 
 console.log('Done!');
 console.log('');
