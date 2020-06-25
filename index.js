@@ -5,7 +5,6 @@ const github = require('@actions/github');
 const exec = require('child_process');
 const os = require('os');
 const fs = require('fs');
-const wget = require('node-wget');
 const unzipper = require('unzipper');
 
 
@@ -28,10 +27,7 @@ console.log('');
 
 // Download the linter
 console.log('Downloading linter...');
-wget({
-    url: 'https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip',
-    dest: __dirname + '/dependencies/glualint.zip'
-});
+exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip');
 
 console.log('Unzipping linter...');
 fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
