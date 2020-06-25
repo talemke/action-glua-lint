@@ -1,169 +1,173 @@
+async function main() {
 
-// Modules
-const core = require('@actions/core');
-const github = require('@actions/github');
-const exec = require('child_process');
-const os = require('os');
-const fs = require('fs');
-const unzipper = require('unzipper');
-
-
-// Other constants
-const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scolumn\\s([0-9]+)\\s-\\sline\\s([0-9]+),\\scolumn\\s([0-9]+):\\s+(.*)';
+    // Modules
+    const core = require('@actions/core');
+    const github = require('@actions/github');
+    const exec = require('child_process');
+    const os = require('os');
+    const fs = require('fs');
+    const unzipper = require('unzipper');
 
 
-// Fetch NodeJS version (and also test exec functionality)
-let result = exec.execSync('node -v');
-console.log('');
-console.log('Repository: ' + github.context.repo.owner + '/' + github.context.repo.repo);
-console.log('Commit SHA: ' + github.context.sha);
-console.log('Operating System: ' + os.type() + ' ' + os.release());
-console.log('Running NodeJS: ' + result.toString('utf-8').trim());
-console.log('Running GLuaFixer: v1.15.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.15.0)');
-console.log('Running GLua-Lint: v0.2');
-console.log('');
+    // Other constants
+    const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scolumn\\s([0-9]+)\\s-\\sline\\s([0-9]+),\\scolumn\\s([0-9]+):\\s+(.*)';
 
 
-
-// Download the linter
-console.log('Downloading linter...');
-exec.execSync('mkdir ' + __dirname + '/dependencies', { stdio: 'ignore' });
-exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip', { stdio: 'ignore' });
-
-console.log('Unzipping linter...');
-fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
-
-console.log('Done!');
-console.log('');
+    // Fetch NodeJS version (and also test exec functionality)
+    let result = exec.execSync('node -v');
+    console.log('');
+    console.log('Repository: ' + github.context.repo.owner + '/' + github.context.repo.repo);
+    console.log('Commit SHA: ' + github.context.sha);
+    console.log('Operating System: ' + os.type() + ' ' + os.release());
+    console.log('Running NodeJS: ' + result.toString('utf-8').trim());
+    console.log('Running GLuaFixer: v1.15.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.15.0)');
+    console.log('Running GLua-Lint: v0.2');
+    console.log('');
 
 
 
-// Do the actual linting
-console.log('Linting ' + process.env.GITHUB_WORKSPACE + core.getInput('directory') + '...');
-exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
-let output;
-try {
-    let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE + core.getInput('directory'), { cwd: __dirname + '/dependencies' });
-    output = result2.stdout.toString().trim();
-} catch (error) {
-    output = error.stdout.toString().trim();
-}
+    // Download the linter
+    console.log('Downloading linter...');
+    exec.execSync('mkdir ' + __dirname + '/dependencies', { stdio: 'ignore' });
+    exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip', { stdio: 'ignore' });
+
+    console.log('Unzipping linter...');
+    await fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
+
+    console.log('Done!');
+    console.log('');
 
 
 
-console.log('Done! Result:');
-console.log('-------------\n');
-
-let message = '';
-let errors = {};
-let errorCount = 0;
-let warnings = {};
-let warningCount = 0;
-let elements = output.split('\n');
-
-for (let i = 0; i < elements.length; i++) {
-    let matches = elements[i].match(REGEX);
-    if (!matches) continue;
-    /* Matches Structure:
-     * [0] = full line
-     * [1] = file path
-     * [2] = type (Error, Warning)
-     * [3] = line (from)
-     * [4] = column (from)
-     * [5] = line (to)
-     * [6] = column (to)
-     * [7] = message
-     */
-    let msg = matches[7];
-    if (msg.match('(Unused variable:\\s)(.*)')) {
-        msg = 'Unused variable(s)';
-    } else if (msg.match('(Deprecated: )(.*)')) {
-        msg = 'Deprecation(s)';
-    } else if (msg.match('(Empty )(elseif|else|if)( statement)')) {
-        msg = 'Empty If/Else-Statement(s)';
-    } else if (msg.match('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
-        msg = 'Double If-Statement(s)';
-    } else if (msg.match('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
-        msg = 'Shadow existing binding(s)';
-    } else if (msg.match('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
-        msg = 'Inconsistent usage(s) (\'!\' and \'not\')';
-    } else if (msg.match('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
-        msg = 'Inconsistent usage(s) (\'&&\' and \'and\')';
-    } else if (msg.match('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
-        msg = 'Inconsistent usage(s) (\'||\' and \'or\')';
-    } else if (msg.match('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
-        msg = 'Inconsistent usage(s) (\'//\' and \'--\')';
-    } else if (msg.match('(Style: Please put some whitespace )(after|before)(.*)')) {
-        msg = 'Missing whitespace(s)';
-    } else if (msg.match('(Trailing whitespace)')) {
-        msg = 'Trailing whitespace(s)';
-    } else if (msg.match('(Unnecessary parentheses)')) {
-        msg = 'Unnecessary parentheses';
-    } else if (msg.match('(Inconsistent use of )(tabs|spaces)( and )(tabs|spaces)( for indentation)')) {
-        msg = 'Inconsistent usage(s) (tabs and spaces)';
-    } else if (msg.match('(Inconsistent use of \')(single|double)( quoted strings\' and \')(single|double)( quoted strings\')')) {
-        msg = 'Inconsistent usage(s) (\' and ")';
-    } else if (msg.match('(Are you Egyptian\\? What\'s with these fucking scope pyramids!\\?)')) {
-        msg = 'Scope pyramid(s)';
-    } else if (msg.match('(\'self.)(Entity|Weapon)(\' is the same as just \'self\' in )(SENT|SWEP)(s)')) {
-        msg = 'Unnecessary member accessement(s)';
-    } else if (msg.match('(Silly negation\\. Use \'~=\')')) {
-        msg = 'Silly negation(s)';
-    } else if (msg.match('(Don\'t use self in a non-metafunction)')) {
-        msg = 'Usage of \'self\' in non-metafunction(s)';
-    } else if (msg.match('(Duplicate key in table: \')(.*)(\'\\.)')) {
-        msg = 'Duplicate key(s) in table(s)';
-    } else {
-        msg = '[RAW] ' + msg;
+    // Do the actual linting
+    console.log('Linting ' + process.env.GITHUB_WORKSPACE + core.getInput('directory') + '...');
+    exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
+    let output;
+    try {
+        let result2 = exec.execSync('./glualint ' + process.env.GITHUB_WORKSPACE + core.getInput('directory'), { cwd: __dirname + '/dependencies' });
+        output = result2.stdout.toString().trim();
+    } catch (error) {
+        output = error.stdout.toString().trim();
     }
 
-    if (matches[2] == 'Error') {
-        errorCount++;
-        if (!errors[msg]) errors[msg] = 1;
-        else errors[msg]++;
-        message += matches[0] + '\n';
 
-    } else if (matches[2] == 'Warning') {
-        warningCount++;
-        if (!warnings[msg]) warnings[msg] = 1;
-        else warnings[msg]++;
 
+    console.log('Done! Result:');
+    console.log('-------------\n');
+
+    let message = '';
+    let errors = {};
+    let errorCount = 0;
+    let warnings = {};
+    let warningCount = 0;
+    let elements = output.split('\n');
+
+    for (let i = 0; i < elements.length; i++) {
+        let matches = elements[i].match(REGEX);
+        if (!matches) continue;
+        /* Matches Structure:
+         * [0] = full line
+         * [1] = file path
+         * [2] = type (Error, Warning)
+         * [3] = line (from)
+         * [4] = column (from)
+         * [5] = line (to)
+         * [6] = column (to)
+         * [7] = message
+         */
+        let msg = matches[7];
+        if (msg.match('(Unused variable:\\s)(.*)')) {
+            msg = 'Unused variable(s)';
+        } else if (msg.match('(Deprecated: )(.*)')) {
+            msg = 'Deprecation(s)';
+        } else if (msg.match('(Empty )(elseif|else|if)( statement)')) {
+            msg = 'Empty If/Else-Statement(s)';
+        } else if (msg.match('(Double if statement\\. Please combine the condition of this if statement with that of the outer if statement using `and`\\.)')) {
+            msg = 'Double If-Statement(s)';
+        } else if (msg.match('(Variable \')(.*)(\' shadows existing binding, defined at line )([0-9]+)(, column )([0-9]+)')) {
+            msg = 'Shadow existing binding(s)';
+        } else if (msg.match('(Inconsistent use of \')(!|not)(\' and \')(!|not)(\')')) {
+            msg = 'Inconsistent usage(s) (\'!\' and \'not\')';
+        } else if (msg.match('(Inconsistent use of \')(&&|and)(\' and \')(&&|and)(\')')) {
+            msg = 'Inconsistent usage(s) (\'&&\' and \'and\')';
+        } else if (msg.match('(Inconsistent use of \')(\\|\\||or)(\' and \')(\\|\\||or)(\')')) {
+            msg = 'Inconsistent usage(s) (\'||\' and \'or\')';
+        } else if (msg.match('(Inconsistent use of \')(\\/\\/|--)(\' and \')(\\/\\/|--)(\')')) {
+            msg = 'Inconsistent usage(s) (\'//\' and \'--\')';
+        } else if (msg.match('(Style: Please put some whitespace )(after|before)(.*)')) {
+            msg = 'Missing whitespace(s)';
+        } else if (msg.match('(Trailing whitespace)')) {
+            msg = 'Trailing whitespace(s)';
+        } else if (msg.match('(Unnecessary parentheses)')) {
+            msg = 'Unnecessary parentheses';
+        } else if (msg.match('(Inconsistent use of )(tabs|spaces)( and )(tabs|spaces)( for indentation)')) {
+            msg = 'Inconsistent usage(s) (tabs and spaces)';
+        } else if (msg.match('(Inconsistent use of \')(single|double)( quoted strings\' and \')(single|double)( quoted strings\')')) {
+            msg = 'Inconsistent usage(s) (\' and ")';
+        } else if (msg.match('(Are you Egyptian\\? What\'s with these fucking scope pyramids!\\?)')) {
+            msg = 'Scope pyramid(s)';
+        } else if (msg.match('(\'self.)(Entity|Weapon)(\' is the same as just \'self\' in )(SENT|SWEP)(s)')) {
+            msg = 'Unnecessary member accessement(s)';
+        } else if (msg.match('(Silly negation\\. Use \'~=\')')) {
+            msg = 'Silly negation(s)';
+        } else if (msg.match('(Don\'t use self in a non-metafunction)')) {
+            msg = 'Usage of \'self\' in non-metafunction(s)';
+        } else if (msg.match('(Duplicate key in table: \')(.*)(\'\\.)')) {
+            msg = 'Duplicate key(s) in table(s)';
+        } else {
+            msg = '[RAW] ' + msg;
+        }
+
+        if (matches[2] == 'Error') {
+            errorCount++;
+            if (!errors[msg]) errors[msg] = 1;
+            else errors[msg]++;
+            message += matches[0] + '\n';
+
+        } else if (matches[2] == 'Warning') {
+            warningCount++;
+            if (!warnings[msg]) warnings[msg] = 1;
+            else warnings[msg]++;
+
+        }
     }
+
+
+
+    if (errorCount != 0) {
+        message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
+        core.setFailed(message);
+    }
+
+
+
+    function printType(type, count) {
+        if (count == 1) type = type.replace('(s)', '');
+        else type = type.replace('(s)', 's');
+        console.log('» ' + type + ': ' + count + 'x');
+    }
+
+
+
+    console.log(warningCount + ' warning(s):');
+    for (let type in warnings) {
+        printType(type, warnings[type]);
+    }
+    console.log('');
+
+
+
+    console.log(errorCount + ' error(s):');
+    for (let type in errors) {
+        printType(type, errors[type]);
+    }
+    console.log('');
+
+
+
+    console.log('------------------------------------------');
+    console.log('Full Linter Output (' + elements.length + ' entries):\n\n');
+    console.log(output);
 }
 
-
-
-if (errorCount != 0) {
-    message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
-    core.setFailed(message);
-}
-
-
-
-function printType(type, count) {
-    if (count == 1) type = type.replace('(s)', '');
-    else type = type.replace('(s)', 's');
-    console.log('» ' + type + ': ' + count + 'x');
-}
-
-
-
-console.log(warningCount + ' warning(s):');
-for (let type in warnings) {
-    printType(type, warnings[type]);
-}
-console.log('');
-
-
-
-console.log(errorCount + ' error(s):');
-for (let type in errors) {
-    printType(type, errors[type]);
-}
-console.log('');
-
-
-
-console.log('------------------------------------------');
-console.log('Full Linter Output (' + elements.length + ' entries):\n\n');
-console.log(output);
+main();
