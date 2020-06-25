@@ -170,4 +170,4 @@ async function main() {
     console.log(output);
 }
 
-main();
+main().then(r => {});
