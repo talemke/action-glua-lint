@@ -27,8 +27,8 @@ console.log('');
 
 // Download the linter
 console.log('Downloading linter...');
-exec.execSync('mkdir ' + __dirname + '/dependencies');
-exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip');
+exec.execSync('mkdir ' + __dirname + '/dependencies', { stdio: 'ignore' });
+exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip', { stdio: 'ignore' });
 
 console.log('Unzipping linter...');
 fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
