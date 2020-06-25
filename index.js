@@ -117,13 +117,13 @@ for (let i = 0; i < elements.length; i++) {
         msg = '[UNGROUPED] ' + msg;
     }
 
-    if (matches[2] == 'Error') {
+    if (matches[2] === 'Error') {
         errorCount++;
         if (!errors[msg]) errors[msg] = 1;
         else errors[msg]++;
         message += matches[0] + '\n';
 
-    } else if (matches[2] == 'Warning') {
+    } else if (matches[2] === 'Warning') {
         warningCount++;
         if (!warnings[msg]) warnings[msg] = 1;
         else warnings[msg]++;
@@ -133,7 +133,7 @@ for (let i = 0; i < elements.length; i++) {
 
 
 
-if (errorCount != 0) {
+if (errorCount !== 0) {
     message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
     core.setFailed(message);
 }
@@ -141,7 +141,7 @@ if (errorCount != 0) {
 
 
 function printType(type, count) {
-    if (count == 1) type = type.replace('(s)', '');
+    if (count === 1) type = type.replace('(s)', '');
     else type = type.replace('(s)', 's');
     console.log('» ' + type + ': ' + count + 'x');
 }
