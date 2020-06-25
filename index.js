@@ -4,10 +4,14 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('child_process');
 const os = require('os');
+const fs = require('fs');
 const wget = require('node-wget');
+const unzipper = require('unzipper');
+
 
 // Other constants
 const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scolumn\\s([0-9]+)\\s-\\sline\\s([0-9]+),\\scolumn\\s([0-9]+):\\s+(.*)';
+
 
 // Fetch NodeJS version (and also test exec functionality)
 let result = exec.execSync('node -v');
@@ -28,6 +32,10 @@ wget({
     url: 'https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip',
     dest: __dirname + '/dependencies/glualint.zip'
 });
+
+console.log('Unzipping linter...');
+fs.createReadStream(__dirname + '/dependencies/glualint.zip').pipe(unzipper.Extract({ path: __dirname + '/dependencies' }));
+
 console.log('Done!');
 
 
