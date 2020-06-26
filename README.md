@@ -1,4 +1,4 @@
-# GLua Linter [GitHub Action]
+# GLua Linter
 
 ![](https://img.shields.io/github/license/TASSIA710/action-glua-lint?style=for-the-badge)
 ![](https://img.shields.io/github/issues/TASSIA710/action-glua-lint?style=for-the-badge)
