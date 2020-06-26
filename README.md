@@ -5,6 +5,7 @@
 ![](https://img.shields.io/static/v1?label=Requires&message=Ubuntu%2018.04&color=orange&style=for-the-badge&logo=ubuntu)
 
 GitHub action to lint GLua scripts.
+Uses [GLuaFixer](https://github.com/FPtje/GLuaFixer) internally.
 
 ## Example workflow file
 
