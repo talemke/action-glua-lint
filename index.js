@@ -4,6 +4,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const exec = require('child_process');
 const os = require('os');
+const fs = require('fs');
 
 
 // Other constants
@@ -34,6 +35,39 @@ exec.execSync('unzip ' + __dirname + '/dependencies/glualint.zip -d' + __dirname
 console.log('Done!');
 console.log('');
 
+
+
+// Create the configuration
+const cfg = {};
+cfg.lint_maxScopeDepth = 7;
+cfg.lint_syntaxErrors = true;
+cfg.lint_syntaxInconsistencies = true;
+cfg.lint_deprecated = true;
+cfg.lint_trailingWhitespace = true;
+cfg.lint_whitespaceStyle = true;
+cfg.lint_beginnerMistakes = true;
+cfg.lint_emptyBlocks = true;
+cfg.lint_shadowing = true;
+cfg.lint_gotos = true;
+cfg.lint_doubleNegations = true;
+cfg.lint_redundantIfStatements = true;
+cfg.lint_redundantParentheses = true;
+cfg.lint_duplicateTableKeys = true;
+cfg.lint_profanity = true;
+cfg.lint_unusedVars = true;
+cfg.lint_unusedParameters = false;
+cfg.lint_unusedLoopVars = false;
+cfg.lint_ignoreFiles = [];
+cfg.prettyprint_spaceAfterParens = false;
+cfg.prettyprint_spaceAfterBrackets = false;
+cfg.prettyprint_spaceAfterBraces = false;
+cfg.prettyprint_spaceBeforeComma = false;
+cfg.prettyprint_spaceAfterComma = true;
+cfg.prettyprint_semicolons = false;
+cfg.prettyprint_cStyle = false;
+cfg.prettyprint_rejectInvalidCode = false;
+cfg.prettyprint_indentation = '\t';
+fs.writeFileSync(__dirname + '/dependencies/glualint.json', JSON.stringify(cfg));
 
 
 // Do the actual linting
