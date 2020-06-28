@@ -39,7 +39,7 @@ console.log('');
 
 // Create the configuration
 const cfg = {};
-cfg.lint_maxScopeDepth = core.getInput('lint_maxScopeDepth');
+cfg.lint_maxScopeDepth = parseInt(core.getInput('lint_maxScopeDepth'));
 cfg.lint_syntaxErrors = core.getInput('lint_syntaxErrors');
 cfg.lint_syntaxInconsistencies = core.getInput('lint_syntaxInconsistencies');
 cfg.lint_deprecated = core.getInput('lint_deprecated');
