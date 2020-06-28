@@ -1,7 +1,9 @@
 name: 'GLua Linter'
 description: 'Lints your GLua files and checks them for errors.'
 
-
+branding:
+  icon: 'check'
+  color: 'blue'
 
 inputs:
   directory:
