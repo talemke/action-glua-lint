@@ -9,95 +9,95 @@ inputs:
     required: false
     default: '/'
 
-    lint_maxScopeDepth:
-      description: 'lint_maxScopeDepth'
-      required: false
-      default: 7
+  lint_maxScopeDepth:
+    description: 'lint_maxScopeDepth'
+    required: false
+    default: 7
 
-    lint_syntaxErrors:
-      description: 'lint_syntaxErrors'
-      required: false
-      default: true
+  lint_syntaxErrors:
+    description: 'lint_syntaxErrors'
+    required: false
+    default: true
 
-    lint_syntaxInconsistencies:
-      description: 'lint_syntaxInconsistencies'
-      required: false
-      default: true
+  lint_syntaxInconsistencies:
+    description: 'lint_syntaxInconsistencies'
+    required: false
+    default: true
 
-    lint_deprecated:
-      description: 'lint_deprecated'
-      required: false
-      default: true
+  lint_deprecated:
+    description: 'lint_deprecated'
+    required: false
+    default: true
 
-    lint_trailingWhitespace:
-      description: 'lint_trailingWhitespace'
-      required: false
-      default: true
+  lint_trailingWhitespace:
+    description: 'lint_trailingWhitespace'
+    required: false
+    default: true
 
-    lint_whitespaceStyle:
-      description: 'lint_whitespaceStyle'
-      required: false
-      default: true
+  lint_whitespaceStyle:
+    description: 'lint_whitespaceStyle'
+    required: false
+    default: true
 
-    lint_beginnerMistakes:
-      description: 'lint_beginnerMistakes'
-      required: false
-      default: true
+  lint_beginnerMistakes:
+    description: 'lint_beginnerMistakes'
+    required: false
+    default: true
 
-    lint_emptyBlocks:
-      description: 'lint_emptyBlocks'
-      required: false
-      default: true
+  lint_emptyBlocks:
+    description: 'lint_emptyBlocks'
+    required: false
+    default: true
 
-    lint_shadowing:
-      description: 'lint_shadowing'
-      required: false
-      default: true
+  lint_shadowing:
+    description: 'lint_shadowing'
+    required: false
+    default: true
 
-    lint_gotos:
-      description: 'lint_gotos'
-      required: false
-      default: true
+  lint_gotos:
+    description: 'lint_gotos'
+    required: false
+    default: true
 
-    lint_doubleNegations:
-      description: 'lint_doubleNegations'
-      required: false
-      default: true
+  lint_doubleNegations:
+    description: 'lint_doubleNegations'
+    required: false
+    default: true
 
-    lint_redundantIfStatements:
-      description: 'lint_redundantIfStatements'
-      required: false
-      default: true
+  lint_redundantIfStatements:
+    description: 'lint_redundantIfStatements'
+    required: false
+    default: true
 
-    lint_redundantParentheses:
-      description: 'lint_redundantParentheses'
-      required: false
-      default: true
+  lint_redundantParentheses:
+    description: 'lint_redundantParentheses'
+    required: false
+    default: true
 
-    lint_duplicateTableKeys:
-      description: 'lint_duplicateTableKeys'
-      required: false
-      default: true
+  lint_duplicateTableKeys:
+    description: 'lint_duplicateTableKeys'
+    required: false
+    default: true
 
-    lint_profanity:
-      description: 'lint_profanity'
-      required: false
-      default: true
+  lint_profanity:
+    description: 'lint_profanity'
+    required: false
+    default: true
 
-    lint_unusedVars:
-      description: 'lint_unusedVars'
-      required: false
-      default: true
+  lint_unusedVars:
+    description: 'lint_unusedVars'
+    required: false
+    default: true
 
-    lint_unusedParameters:
-      description: 'lint_unusedParameters'
-      required: false
-      default: true
+  lint_unusedParameters:
+    description: 'lint_unusedParameters'
+    required: false
+    default: true
 
-    lint_unusedLoopVars:
-      description: 'lint_unusedLoopVars'
-      required: false
-      default: true
+  lint_unusedLoopVars:
+    description: 'lint_unusedLoopVars'
+    required: false
+    default: true
 
 
 
