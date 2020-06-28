@@ -18,7 +18,7 @@ console.log('Repository: ' + github.context.repo.owner + '/' + github.context.re
 console.log('Commit SHA: ' + github.context.sha);
 console.log('Operating System: ' + os.type() + ' ' + os.release());
 console.log('Running NodeJS: ' + result.toString('utf-8').trim());
-console.log('Running GLuaFixer: v1.15.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.16.0)');
+console.log('Running GLuaFixer: v1.16.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.16.0)');
 console.log('Running GLua-Lint: v0.2');
 console.log('');
 
@@ -27,7 +27,7 @@ console.log('');
 // Download the linter
 console.log('Downloading linter...');
 exec.execSync('mkdir ' + __dirname + '/dependencies', { stdio: 'ignore' });
-exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.15.0/glualint-1.15.0-linux.zip', { stdio: 'ignore' });
+exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.16.0/glualint-1.16.0-linux.zip', { stdio: 'ignore' });
 
 console.log('Unzipping linter...');
 exec.execSync('unzip ' + __dirname + '/dependencies/glualint.zip -d' + __dirname + '/dependencies');
