@@ -19,7 +19,7 @@ console.log('Commit SHA: ' + github.context.sha);
 console.log('Operating System: ' + os.type() + ' ' + os.release());
 console.log('Running NodeJS: ' + result.toString('utf-8').trim());
 console.log('Running GLuaFixer: v1.16.0 (https://github.com/FPtje/GLuaFixer/releases/tag/1.16.0)');
-console.log('Running GLua-Lint: v0.2');
+console.log('Running GLua-Lint: v1 (https://github.com/TASSIA710/action-glua-lint/releases/tag/v1)');
 console.log('');
 
 
