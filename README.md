@@ -29,3 +29,8 @@ jobs:
         with:
           directory: / # This is the directory to scan. If '/' is selected, it will scan the entire repository.
 ```
+
+## Configuration
+
+Basically just [look at this](https://github.com/FPtje/GLuaFixer#linter-options). All `lint_*` options are supported.
+Prettyprint options aren't supported because this is a Linter and not a Prettyprinter.
