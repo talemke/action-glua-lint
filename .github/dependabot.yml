@@ -1,0 +1,10 @@
+# Dependabot configuration for TASSIA710/action-glua-lint
+
+version: 2
+updates:
+
+  # Keep NPM packages up-to-date :D
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
