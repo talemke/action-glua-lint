@@ -19,6 +19,6 @@
   "homepage": "https://github.com/TASSIA710/action-glua-lint#readme",
   "dependencies": {
     "@actions/core": "^1.2.4",
-    "@actions/github": "^3.0.0"
+    "@actions/github": "^4.0.0"
   }
 }
