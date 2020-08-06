@@ -101,9 +101,6 @@ inputs:
     required: false
     default: true
 
-
-
-outputs: []
 runs:
   using: 'node12'
   main: 'index.js'
