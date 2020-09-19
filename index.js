@@ -168,11 +168,8 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 
-
-if (errorCount !== 0) {
-    message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
-    core.setFailed(message);
-} else if (warningCount !== 0 && (core.getInput('failOnWarning') === 'true')) {
+let failOnWarning = core.getInput('failOnWarning') === 'true';
+if (errorCount !== 0 || (failOnWarning && warningCount !== 0)) {
     message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
     core.setFailed(message);
 }
