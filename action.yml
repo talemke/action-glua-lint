@@ -11,6 +11,11 @@ inputs:
     required: false
     default: '/'
 
+  failOnWarning:
+    description: 'Whether to fail if any warnings occur'
+    required: false
+    default: false
+
   lint_maxScopeDepth:
     description: 'lint_maxScopeDepth'
     required: false

@@ -172,6 +172,9 @@ for (let i = 0; i < elements.length; i++) {
 if (errorCount !== 0) {
     message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
     core.setFailed(message);
+} else if (warningCount !== 0 && (core.getInput('failOnWarning') === 'true')) {
+    message = ' Found ' + errorCount + ' error(s) and ' + warningCount + ' warning(s):\n' + message;
+    core.setFailed(message);
 }
 
 
