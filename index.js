@@ -8,6 +8,8 @@ const fs = require('fs');
 
 
 // Other constants
+const GLUA_LINT_TAG = '1.1';
+const GLUA_FIXER_TAG = '1.16.2';
 const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scolumn\\s([0-9]+)\\s-\\sline\\s([0-9]+),\\scolumn\\s([0-9]+):\\s+(.*)';
 
 
@@ -18,8 +20,8 @@ console.log('Repository: ' + github.context.repo.owner + '/' + github.context.re
 console.log('Commit SHA: ' + github.context.sha);
 console.log('Operating System: ' + os.type() + ' ' + os.release());
 console.log('Running NodeJS: ' + result.toString('utf-8').trim());
-console.log('Running GLuaFixer: v1.16.2 (https://github.com/FPtje/GLuaFixer/releases/tag/1.16.2)');
-console.log('Running GLua-Lint: v1.1 (https://github.com/TASSIA710/action-glua-lint/releases/tag/v1.1)');
+console.log('Running GLuaFixer: v' + GLUA_FIXER_TAG + ' (https://github.com/FPtje/GLuaFixer/releases/tag/' + GLUA_FIXER_TAG + ')');
+console.log('Running GLua-Lint: v' + GLUA_LINT_TAG + ' (https://github.com/TASSIA710/action-glua-lint/releases/tag/v' + GLUA_LINT_TAG + ')');
 console.log('');
 
 
@@ -27,7 +29,8 @@ console.log('');
 // Download the linter
 console.log('Downloading linter...');
 exec.execSync('mkdir ' + __dirname + '/dependencies', { stdio: 'ignore' });
-exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip https://github.com/FPtje/GLuaFixer/releases/download/1.16.2/glualint-1.16.2-linux.zip', { stdio: 'ignore' });
+const downloadURL = 'https://github.com/FPtje/GLuaFixer/releases/download/' + GLUA_FIXER_TAG + '/glualint-' + GLUA_FIXER_TAG + '-linux.zip';
+exec.execSync('wget -O ' + __dirname + '/dependencies/glualint.zip ' + downloadURL, { stdio: 'ignore' });
 
 console.log('Unzipping linter...');
 exec.execSync('unzip ' + __dirname + '/dependencies/glualint.zip -d' + __dirname + '/dependencies');
