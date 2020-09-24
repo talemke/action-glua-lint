@@ -81,7 +81,17 @@ try {
     const cmd = './glualint ' + process.env.GITHUB_WORKSPACE + core.getInput('directory') + ' --config ' + __dirname + '/dependencies/glualint.json';
     console.log('> ' + cmd);
     let result2 = exec.execSync(cmd, { cwd: __dirname + '/dependencies' });
-    output = result2.stdout.toString().trim();
+    if (!result2.stdout) {
+        // Great! We didn't receive any output. This means something went either horribly wrong (unlikely), or we
+        // didn't encounter any errors nor warnings on any file! :D
+        console.log('Done! Result:');
+        console.log('-------------\n');
+        console.log('Awesome! Your code is looking flawless. No errors or warnings were found!');
+        return;
+    } else {
+        // Shoot! Having an output means some warnings or errors were found. Best to report them to the client.
+        output = result2.stdout.toString().trim();
+    }
 } catch (error) {
     core.setFailed(error);
     return;
