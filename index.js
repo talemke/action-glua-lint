@@ -83,7 +83,8 @@ try {
     let result2 = exec.execSync(cmd, { cwd: __dirname + '/dependencies' });
     output = result2.stdout.toString().trim();
 } catch (error) {
-    output = error.stdout.toString().trim();
+    core.setFailed(error);
+    return;
 }
 
 
