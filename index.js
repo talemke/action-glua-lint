@@ -93,6 +93,7 @@ try {
         output = result2.stdout.toString().trim();
     }
 } catch (error) {
+    console.log(error);
     core.setFailed(error);
     return;
 }
