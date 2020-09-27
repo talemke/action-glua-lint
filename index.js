@@ -93,8 +93,11 @@ try {
         output = result2.stdout.toString().trim();
     }
 } catch (error) {
-    console.log(error);
     core.setFailed(error);
+    if (error.stdout) {
+        console.log('Further information:');
+        console.log(error.stdout.toString());
+    }
     return;
 }
 
