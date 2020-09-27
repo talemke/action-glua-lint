@@ -93,12 +93,14 @@ try {
         output = result2.stdout.toString().trim();
     }
 } catch (error) {
-    core.setFailed(error);
+    // I THINK, NodeJS will throw error if the command fails (exit code != 0), but that also happens when some linting
+    // errors are found. So let's just treat this as normal output.
     if (error.stdout) {
-        console.log('Further information:');
-        console.log(error.stdout.toString());
+        output = error.stdout.toString().trim();
+    } else {
+        core.setFailed(error);
+        return;
     }
-    return;
 }
 
 
