@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // Other constants
 const GLUA_LINT_TAG = '1.1.1';
-const GLUA_FIXER_TAG = '1.16.3';
+const GLUA_FIXER_TAG = '1.16.4';
 const REGEX = '([a-zA-Z_\\-\\/.]+):\\s\\[([a-zA-Z]+)\\]\\sline\\s([0-9]+),\\scolumn\\s([0-9]+)\\s-\\sline\\s([0-9]+),\\scolumn\\s([0-9]+):\\s+(.*)';
 
 
