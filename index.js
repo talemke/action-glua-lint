@@ -78,7 +78,7 @@ console.log('Linting ' + process.env.GITHUB_WORKSPACE + core.getInput('directory
 exec.execSync('chmod +x glualint', { cwd: __dirname + '/dependencies' });
 let output;
 try {
-    const cmd = './glualint ' + process.env.GITHUB_WORKSPACE + core.getInput('directory') + ' --config ' + __dirname + '/dependencies/glualint.json';
+    const cmd = './glualint ' + process.env.GITHUB_WORKSPACE + core.getInput('directory') + ' --output-format standard --config ' + __dirname + '/dependencies/glualint.json';
     console.log('> ' + cmd);
     let result2 = exec.execSync(cmd, { cwd: __dirname + '/dependencies' });
     if (!result2.stdout) {
