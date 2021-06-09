@@ -26,8 +26,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Linting
         id: action-glua-lint
-        # You can change v1.1.3 to a newer version or 'master.' Changing it to 'master' may cause unexpected behavior.
-        uses: TASSIA710/action-glua-lint@v1.1.3
+        # You can change v1.1.4 to a newer version or 'master.' Changing it to 'master' may cause unexpected behavior.
+        uses: TASSIA710/action-glua-lint@v1.1.4
         with:
           directory: / # This is the directory to scan. If '/' is selected, it will scan the entire repository.
 ```
